@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import CVForm from "./components/CVForm";
+import CVUpload from "./components/CVUpload";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState<0 | 1>(0);
@@ -36,7 +37,9 @@ function App() {
                   {selectedTab === 1 && (
                     <div className="card-container">
                       <div className="center-wrap">
-                        <div className="section text-center"></div>
+                        <div className="section text-center">
+                          <CVUpload />
+                        </div>
                       </div>
                     </div>
                   )}
