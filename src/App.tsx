@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import CVForm from "./components/CVForm";
 
 function App() {
+  const [selectedTab, setSelectedTab] = useState<0 | 1>(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="section">
+      <div className="container">
+        <div className="row full-height justify-content-center align-middle">
+          <h6 className="position-fixed h6-sidebar">
+            <span
+              className={`cursor-pointer ${
+                selectedTab === 0 ? "selectedTab" : ""
+              }`}
+              onClick={() => setSelectedTab(0)}
+            >
+              Stwórz CV
+            </span>
+            <br />
+            <span
+              className={`cursor-pointer ${
+                selectedTab === 1 ? "selectedTab" : ""
+              }`}
+              onClick={() => setSelectedTab(1)}
+            >
+              Wgraj swoje CV
+            </span>
+          </h6>
+          <div className="col-10 text-center align-self-center">
+            <div className="section pb-2 pt-2 pt-sm-2 text-center">
+              <div className="card-3d-wrap mx-auto">
+                <div className="card-3d-wrapper">
+                  {selectedTab === 0 && <CVForm />}
+                  {selectedTab === 1 && (
+                    <div className="card-container">
+                      <div className="center-wrap">
+                        <div className="section text-center"></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
