@@ -43,8 +43,13 @@ jobs:
       run: ./gradlew build -x test
       working-directory: backend
 
+    - name: Debug - List files in build/libs
+      run: ls -la build/libs
+      working-directory: backend
+
     - name: Copy JAR file
-      run: cp backend/build/libs/*.jar backend/backend.jar
+      run: cp build/libs/*.jar backend.jar
+      working-directory: backend
 
     - name: Build Docker image
       run: docker build -t my-app:latest .
