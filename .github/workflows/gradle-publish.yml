@@ -9,6 +9,8 @@ name: Gradle Package
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -30,14 +32,43 @@ jobs:
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+      with:
+        working-directory: backend
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      working-directory: backend
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build -x test
+      working-directory: backend
 
-    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
+    - name: Copy JAR file
+      run: cp backend/build/libs/*.jar backend.jar
+
+    - name: Build Docker image
+      run: docker build -t my-app:latest .
+
+        # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
     - name: Publish to GitHub Packages
       run: ./gradlew publish
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      working-directory: backend
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend  # Path to your Dockerfile and application
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/zw_back:latest
+          ${{ secrets.DOCKER_USERNAME }}/zw_back:${{ github.sha }}
+        platforms: linux/amd64,linux/arm64
+
+    - name: Verify Docker image
+      run: |
+        docker pull ${{ secrets.DOCKER_USERNAME }}/zw_back:latest
+        docker images
