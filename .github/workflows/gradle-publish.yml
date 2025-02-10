@@ -41,6 +41,12 @@ jobs:
       run: ./gradlew build
       working-directory: backend
 
+    - name: Copy JAR file
+      run: cp backend/build/libs/*.jar app.jar
+
+    - name: Build Docker image
+      run: docker build -t my-app:latest .
+
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
     - name: Publish to GitHub Packages
