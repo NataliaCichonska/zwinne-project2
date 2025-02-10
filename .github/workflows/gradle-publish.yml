@@ -44,12 +44,13 @@ jobs:
       working-directory: backend
 
     - name: Copy JAR file
-      run: cp backend/build/libs/*.jar backend.jar
+      run: cp backend/build/libs/*.jar backend/backend.jar
 
     - name: Build Docker image
       run: docker build -t my-app:latest .
+      working-directory: backend
 
-        # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
+    # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
     - name: Publish to GitHub Packages
       run: ./gradlew publish
