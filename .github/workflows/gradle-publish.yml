@@ -44,11 +44,14 @@ jobs:
       working-directory: backend
 
     - name: Debug - List files in build/libs
-      run: ls -la build/libs
+      run: |
+        ls -la build/libs
+        ls -la build/libs/*.jar
+        ls -la build/libs/*SNAPSHOT.jar
       working-directory: backend
 
     - name: Copy JAR file
-      run: cp build/libs/*.jar backend.jar
+      run: cp build/libs/*SNAPSHOT.jar backend.jar
       working-directory: backend
 
     - name: Build Docker image

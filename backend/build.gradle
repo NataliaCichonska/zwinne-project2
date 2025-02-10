@@ -57,7 +57,6 @@ bootJar {
 }
 
 jar {
-    archiveFileName = 'backend.jar' // Optional: Custom JAR name
     manifest {
         attributes(
             'Main-Class': 'pbs.agile.spring.BackendApplication'
