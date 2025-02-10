@@ -23,11 +23,11 @@ type CorrectionResponse = Partial<FormData>;
 const CVForm = () => {
   const { control, watch, setValue, handleSubmit } = useForm<FormData>();
   const [feedback, setFeedback] = useState<Feedback>({
-    profile: "Wprowadż wartość, by poznać ocenę.",
-    education: "Wprowadż wartość, by poznać ocenę.",
-    experience: "Wprowadż wartość, by poznać ocenę.",
-    skills: "Wprowadż wartość, by poznać ocenę.",
-    contact: "Wprowadż wartość, by poznać ocenę.",
+    profile: "Wprowadź wartość, by poznać ocenę.",
+    education: "Wprowadź wartość, by poznać ocenę.",
+    experience: "Wprowadź wartość, by poznać ocenę.",
+    skills: "Wprowadź wartość, by poznać ocenę.",
+    contact: "Wprowadź wartość, by poznać ocenę.",
   });
   const [correctedFields, setCorrectedFields] = useState<Set<keyof FormData>>(
     new Set()
@@ -40,30 +40,21 @@ const CVForm = () => {
       const fieldValue = watchedFields[fieldName];
 
       if (fieldName && fieldName !== "fullname" && fieldValue) {
-        axios
-          .post<{ message: string }>("/api/validate-field", {
-            field: fieldName,
-            value: fieldValue,
-          })
-          .then((response) => {
+          let validMessage = fieldValue ? "" : "Pole nie może być puste!"
             setFeedback((prev) => ({
               ...prev,
-              [fieldName]: response.data.message,
+              [fieldName]: validMessage,
             }));
-          })
-          .catch((err) => {
-            console.error("Error validating field:", err);
-          });
       }
     }, 2000);
 
     return () => clearTimeout(debounce);
-  }, [watchedFields]);
+}, [watchedFields]);
 
   const onSubmit = async (data: FormData) => {
     try {
       const response = await axios.post<CorrectionResponse>(
-        "/api/correct-cv",
+        "http://localhost:8080/api/correct-cv",
         data
       );
 

@@ -20,9 +20,8 @@ const CVUpload = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      //TODO Wysyłanie pliku do backendu
       const response = await axios.post<{ feedback: string }>(
-        "/api/upload-cv",
+        "http://localhost:8080/api/upload-cv",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
