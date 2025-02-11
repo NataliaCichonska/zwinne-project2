@@ -4,7 +4,7 @@ Library    Collections
 
 *** Keywords ***
 Run Docker Container
-    [Arguments]    ${image}    ${name}    ${port}=${EMPTY}    ${detached}=${False}    ${env_vars}=${EMPTY}    ${timeout}=5
+    [Arguments]    ${image}    ${name}    ${port}=${EMPTY}    ${detached}=${False}    ${env_vars}=${EMPTY}    ${timeout}=1m
     ${command}    Create List    docker    run    --name    ${name}
     IF    $env_vars
         FOR    ${env_var}    IN    @{env_vars}
