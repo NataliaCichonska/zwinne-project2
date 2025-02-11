@@ -20,6 +20,8 @@ type Feedback = {
 
 type CorrectionResponse = Partial<FormData>;
 
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+
 const CVForm = () => {
   const { control, watch, setValue, handleSubmit } = useForm<FormData>();
   const [feedback, setFeedback] = useState<Feedback>({
@@ -54,7 +56,7 @@ const CVForm = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await axios.post<CorrectionResponse>(
-        `${process.env.BACKEND_URL}/api/correct-cv`,
+        `${API_BASE_URL}/api/correct-cv`,
         data
       );
 
