@@ -13,14 +13,11 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Set environment variables
-ENV BACKEND_URL=${REACT_APP_BACKEND_URL:-http://localhost:8081}
-
 # Build the application
 RUN npm run build
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Define the command to run the app
-CMD ["npm", "start"]
+# Define the command to run the app with verification for BACKEND_URL
+CMD ["sh", "-c", "if [ -z \"$BACKEND_URL\" ]; then echo 'Error: BACKEND_URL is not set'; exit 1; fi; npm start"]

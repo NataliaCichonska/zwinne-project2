@@ -54,7 +54,7 @@ const CVForm = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await axios.post<CorrectionResponse>(
-        "http://localhost:8080/api/correct-cv",
+        `${process.env.BACKEND_URL}/api/correct-cv`,
         data
       );
 

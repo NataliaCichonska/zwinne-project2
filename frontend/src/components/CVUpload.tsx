@@ -21,7 +21,7 @@ const CVUpload = () => {
       formData.append("file", file);
 
       const response = await axios.post<{ feedback: string }>(
-        "http://localhost:8080/api/upload-cv",
+        `${process.env.BACKEND_URL}/api/upload-cv`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
