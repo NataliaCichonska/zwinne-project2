@@ -11,7 +11,9 @@ COPY src/main/resources/tessdata /usr/share/tessdata/
 # Set TESSDATA_PREFIX environment variable
 ENV TESSDATA_PREFIX=/usr/share/tessdata/
 
-# Expose the application port
+# Install Tesseract OCR
+RUN apt-get update && apt-get install -y tesseract-ocr && rm -rf /var/lib/apt/lists/*
+
 EXPOSE 8080
 
 # Use JSON format for CMD and validate OPENAI_API_KEY using entrypoint script
