@@ -53,7 +53,6 @@ tasks.named('test') {
 }
 
 bootJar {
-    mainClassName = 'pbs.agile.spring.BackendApplication'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
