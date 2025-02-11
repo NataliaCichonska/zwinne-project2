@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+
 const CVUpload = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [uploadedFilePreview, setUploadedFilePreview] = useState<string | null>(
@@ -21,7 +23,7 @@ const CVUpload = () => {
       formData.append("file", file);
 
       const response = await axios.post<{ feedback: string }>(
-        `${process.env.BACKEND_URL}/api/upload-cv`,
+        `${API_BASE_URL}/api/upload-cv`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
