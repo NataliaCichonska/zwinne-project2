@@ -1,7 +1,4 @@
-# Use a multi-stage build to create the final image
-
-# Run stage
-FROM openjdk:11-jre-slim
+FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
