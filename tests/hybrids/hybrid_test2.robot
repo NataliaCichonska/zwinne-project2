@@ -19,18 +19,10 @@ Verify CV Form Submission
 
     # Wgranie CV
     Click Element    xpath=${FILE_UPLOAD}
-    Choose File    xpath=${FILE_UPLOAD}    xpath=${CV_PATH}
-    # Drag And Drop  xpath=${CV_PATH}    xpath=${FILE_UPLOAD}
-    
-    # Click Element    xpath=${FILE_UPLOAD}
-    # Sleep    1s
-    # Evaluate    from pywinauto import Application; app = Application().connect(title="Wysyłanie pliku");
-    # ...    dlg = app.window(title="Wysyłanie pliku"); dlg.Edit.set_text("D:\Code\zwinne-project2\tests\CV_Sample.jpg"); dlg.Button.click()    
-    
-    # Sleep    1s
-    # Execute Script    from pynput.keyboard import Controller; keyboard = Controller(); 
-    # ...    keyboard.type("C:\\Users\\User\\Desktop\\moje_cv.png"); keyboard.press(Key.enter); keyboard.release(Key.enter)
-    
+    Sleep    2s
+    Evaluate    __import__('pyautogui').write(r"${CV_PATH}")    
+    Evaluate    __import__('pyautogui').press("enter")
+
     Sleep    5s
 
     # Pobranie koemntarza CV
