@@ -21,3 +21,4 @@ ${BUTTON_CHANGE}    /html/body/div/div/div/div/h6/span[2]
 ${FILE_UPLOAD}    /html/body/div/div/div/div/div/div/div/div/div/div/div/div/div
 ${CV_PATH}    D:\\Code\\zwinne-project2\\tests\\CV_Sample.jpg
 ${CV_COOMENT}    /html/body/div/div/div/div/div/div/div/div/div/div/div/div/div/div[2]
+${BUTTON_POPUP}    /html/body/div/div/div/div/div/div/div/div/form/div/div[1]/button

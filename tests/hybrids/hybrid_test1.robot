@@ -21,6 +21,10 @@ Verify CV Form Submission
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
 
+    # Zamknięcie informacji pop-up
+    Sleep    2s
+    Click Button    xpath=${BUTTON_POPUP}
+
     # Wypełnianie formularza
     Input Text    xpath=${XPATH_NAME}    ${NAME}
     Input Text    xpath=${INPUT_TITLE}    ${TITLE} 
@@ -34,7 +38,7 @@ Verify CV Form Submission
     Click Button    xpath=${BUTTON_CORRECT}
 
     # Sprawdzenie czy przetwarzanie CV zakończyło się sukcesem (dopasuj do aplikacji)
-    Sleep    30s
+    Sleep    20s
 
     # Pobranie wartości po kliknięciu
     ${EXIT_NAME}         Get Text    xpath=${XPATH_NAME}
