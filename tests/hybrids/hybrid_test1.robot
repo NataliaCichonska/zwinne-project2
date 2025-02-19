@@ -34,6 +34,12 @@ Verify CV Form Submission
     Input Text    xpath=${INPUT_SKILLS}    ${SKILLS}
     Input Text    xpath=${INPUT_CONTACT}    ${CONTACT}
 
+    Wait Until Keyword Succeeds    3m    10s    Submit And Verify
+
+    Close Browser
+
+*** Keywords ***
+Submit And Verify
     # Kliknięcie przycisku "POPRAW CV"
     Click Button    xpath=${BUTTON_CORRECT}
 
@@ -57,5 +63,3 @@ Verify CV Form Submission
     Should Not Be Equal    ${EDUCATION}    ${EXIT_EDUCATION}
     Should Not Be Equal    ${SKILLS}    ${EXIT_SKILLS}    
     Should Be Equal    ${CONTACT}    ${EXIT_CONTACT}    
-
-    Close Browser

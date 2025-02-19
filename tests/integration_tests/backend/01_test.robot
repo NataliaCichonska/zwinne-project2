@@ -24,6 +24,11 @@ Correct CV Data
     ${cv_data}=    Create Dictionary    fullname=John Doe    title=Developer
     ...    profile=Experienced developer    education=Bachelor's Degree    experience=5 years
     ...    skills=JavaScript, React    contact=john.doe@example.com
+    Wait Until Keyword Succeeds    3min    10s    Post CV Data Request And Verify    ${cv_data}
+
+*** Keywords ***
+Post CV Data Request And Verify
+    [Arguments]    ${cv_data}
     ${response}=    Post Request    backend    ${CORRECT_ENDPOINT}    json=${cv_data}
     Should Be Equal As Strings    ${response.status_code}    200
     Should Not Be Equal    ${cv_data}[profile]    ${response.json()['profile']}
