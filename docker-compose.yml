@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: cichonskanatalia/zw_back:latest
+    ports:
+      - "$PORT_BACKEND:8080"
+    environment:
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+    networks:
+      - webnet
+
+  fontend:
+    image: cichonskanatalia/zw_front:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=$IP:$PORT_BACKEND
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
