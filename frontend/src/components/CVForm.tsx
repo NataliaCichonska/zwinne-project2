@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FieldInput from "./Input";
 import FieldTextArea from "./TextArea";
+import PopUpAlert from "./PopUpAlert";
 
 type FormData = {
   fullname: string;
@@ -74,11 +75,30 @@ const CVForm = () => {
       setCorrectedFields(updatedFields);
     } catch (error) {
       console.error("Error correcting CV:", error);
+      const response = (error as any)?.response;
+      if (response?.status === 500) {
+        setErrorPopUp(true);
+        setErrorText(response.data.error ?? "ERROR");
+      }
     }
   };
+
+  const [disclaimerPopUp, setDisclaimerPopUp] = useState(false);
+  const [errorPopUp, setErrorPopUp] = useState(false);
+  const [errorText, setErrorText] = useState("");
+
+  useEffect(() => {
+    if (!localStorage.getItem("popupClosed")) {
+      console.log("Pop-up powinien się otworzyć");
+      setDisclaimerPopUp(true);  
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="card-container">
       <div className="center-wrap">
+        <PopUpAlert isOpen={errorPopUp} customText={errorText} onClose={() => {setErrorPopUp(false);}} />
+        <PopUpAlert isOpen={disclaimerPopUp} onClose={() => {setDisclaimerPopUp(false); localStorage.setItem("popupClosed", "true")}} />
         <div className="form-container">
           <div className="form-column form-column-1">
             <FieldTextArea
@@ -149,6 +169,9 @@ const CVForm = () => {
       </div>
     </form>
   );
+
+  
+
 };
 
 export default CVForm;
