@@ -30,7 +30,7 @@ Verify CV Form Submission
     Input Text    xpath=${INPUT_SKILLS}    ${SKILLS}
     Input Text    xpath=${INPUT_CONTACT}    ${CONTACT}
 
-    # Kliknięcie przycisku "POPRW CV"
+    # Kliknięcie przycisku "POPRAW CV"
     Click Button    xpath=${BUTTON_CORRECT}
 
     # Sprawdzenie czy przetwarzanie CV zakończyło się sukcesem (dopasuj do aplikacji)
