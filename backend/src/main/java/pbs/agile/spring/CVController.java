@@ -41,12 +41,11 @@ public class CVController {
     }
 
     @PostMapping("/correct-cv")
-    public String sendText(@RequestBody FormData data) throws JsonProcessingException {
-        UserMessage userMessage = new UserMessage("Validate my CV: " + data);
+    public Feedback sendText(@RequestBody FormData data) {
+        UserMessage userMessage = new UserMessage("Validate my CV: " + data.toString());
         Prompt prompt = new Prompt(List.of(systemMessageCorrect, systemMessageAntiInjection, systemMessageLanguage, userMessage));
         String response = chatClient.prompt(prompt).call().content();
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(response, FormData.class);
+        return new Feedback(response);
     }
 
     @PostMapping("/upload-cv")
