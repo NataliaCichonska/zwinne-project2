@@ -24,9 +24,8 @@ import java.util.List;
 @RestController
 public class CVController {
     private final ChatClient chatClient;
-    private final SystemMessage systemMessageCorrectJSON = new SystemMessage("You are in charge of validating CVs. The following" +
-            "is a cv in text form. Adjust the CV with given information and make it relevant for the job (title field). Provide only short, useful and concise info to each field (two sentences max) - " +
-            "only if the field requires it. Don't say what to change, just change it. Return a JSON with fields based on request");
+    private final SystemMessage systemMessageCorrect = new SystemMessage("You are in charge of validating CVs. The following" +
+            "is a cv in text form. Your job is to provide short, useful and concise info what could be improved");
     private final SystemMessage systemMessageUpload = new SystemMessage("You are in charge of validating CVs " +
             "from an image file parsed with Apache Tika. You will provide" +
             "improvements as a single string response. Make it short and concise.");
@@ -42,9 +41,9 @@ public class CVController {
     }
 
     @PostMapping("/correct-cv")
-    public FormData sendText(@RequestBody FormData data) throws JsonProcessingException {
+    public String sendText(@RequestBody FormData data) throws JsonProcessingException {
         UserMessage userMessage = new UserMessage("Validate my CV: " + data);
-        Prompt prompt = new Prompt(List.of(systemMessageCorrectJSON, systemMessageAntiInjection, systemMessageLanguage, userMessage));
+        Prompt prompt = new Prompt(List.of(systemMessageCorrect, systemMessageAntiInjection, systemMessageLanguage, userMessage));
         String response = chatClient.prompt(prompt).call().content();
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(response, FormData.class);
