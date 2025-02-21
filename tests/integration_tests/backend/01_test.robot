@@ -31,8 +31,6 @@ Post CV Data Request And Verify
     [Arguments]    ${cv_data}
     ${response}=    POST On Session    backend    ${CORRECT_ENDPOINT}    json=${cv_data}
     Should Be Equal As Strings    ${response.status_code}    200
-    # Should Not Be Equal    ${cv_data}[profile]    ${response.json()['profile']}
-    # Log    ${response.json()}
-    ${response_text}=    Convert To String    ${response.text}
-    Log    ${response_text}
-    Should Contain    ${response_text}    Corrected profile data
+    Log    ${response.json()['feedback']}
+    Should Not Be Empty    ${response.json()['feedback']}
+    Log    ${response.json()}
