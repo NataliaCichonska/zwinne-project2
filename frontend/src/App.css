@@ -82,8 +82,8 @@ h6 span {
   position: relative;
   width: 1000px;
   max-width: 100%;
-  height: 630px;
-  max-height: 630px;
+  height: 650px;
+  max-height: 200%;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   perspective: 800px;
@@ -123,9 +123,9 @@ h6 span {
   position: absolute;
   width: 100%;
   padding: 0 35px;
-  top: 50%;
+  /* top: 50%; */
   left: 0;
-  transform: translate3d(0, -50%, 35px) perspective(100px);
+  /* transform: translate3d(0, -50%, 35px) perspective(100px); */
   z-index: 20;
   display: block;
 }
@@ -368,24 +368,46 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* .cv-container {
+.cv-form-container {
   display: flex;
-  gap: 20px;
-} */
-
-/*
-.card-container {
-  width: 50%;
-}*/
-
-/* .response-container {
-  width: 50%;
-  padding: 20px;
-  background: #222;
-  color: white;
-  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
 }
 
-.response-item {
-  margin-bottom: 10px;
-} */
+.response-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  padding: 15px;
+  max-width: 78%;
+  border-radius: 8px;
+  background-color: #1f2029;
+  font-size: 16px;
+  color: #333;
+  text-align: left;
+  line-height: 1.6;
+  min-height: 50px; /* Zapobiega przeskakiwaniu */
+  display: flex;
+  flex-direction: column; /* Ustawia układ pionowy */
+  align-items: flex-start; /* Wyrównuje tekst do lewej */
+  justify-content: flex-start;
+  width: 100%;
+  word-wrap: break-word; /* Zawija długie słowa  */
+  overflow-wrap: break-word; /* Obsługuje zawijanie w nowoczesnych przeglądarkach  */
+}
+
+.response-text {
+  font-weight: 400;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  outline: none;
+  color: #c4c3ca;
+  text-align: left;
+  display: block; /* Zapewnia, że każdy span zajmuje pełną szerokość */
+  width: 100%; /* Zapobiega rozciąganiu poziomo */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+

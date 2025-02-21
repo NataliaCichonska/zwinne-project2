@@ -1,6 +1,13 @@
 import React from "react";
 
-const PopUpAlert = ({ isOpen, onClose, customText }: { isOpen: boolean; onClose: () => void; customText?: string; }) => {
+type PopUpAlertProps = { 
+  isOpen: boolean;
+  onClose: () => void;
+  customText?: React.ReactNode;
+  title?: string;
+}
+
+const PopUpAlert = ({ isOpen, onClose, customText, title }: PopUpAlertProps) => {
   if (!isOpen) return null; // Jeśli isOpen = false, nie renderuj nic
 
   return (
@@ -17,14 +24,14 @@ const PopUpAlert = ({ isOpen, onClose, customText }: { isOpen: boolean; onClose:
       <h1 style={{
         color: "#fe4242",
         fontWeight: 800
-      }}>Ostrzeżenie!</h1>
-      <p style={{
+      }}>{title || "Ostrzeżenie!"}</h1>
+      <div style={{
         marginTop: "1rem",
         color: "#1f2029",
         fontWeight: 600
       }}>   
       {customText || "Szanowny Użytkowniku, informujemy, że wszelkie dane wprowadzane do formularza na tej stronie będą przesyłane do Chat GPT (firmy OpenAI) w celu ich przetworzenia i analizy. Prosimy o świadome wprowadzanie informacji, zwracając uwagę na ochronę danych osobowych oraz poufność przekazywanych treści. Jeśli nie wyrażasz zgody na przesyłanie danych, prosimy o niekorzystanie z formularza."}
-      </p>
+      </div>
       <button onClick={onClose} style={{
         marginTop: "1rem",
         color: "#1f2029",
