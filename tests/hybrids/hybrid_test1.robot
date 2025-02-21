@@ -14,6 +14,7 @@ ${EDUCATION}    Politechnika Bydgoska
 ${SKILLS}    Python, JavaScript, Selenium
 ${CONTACT}    jan.kowalski@example.com
 
+
 *** Test Cases ***
 Verify CV Form Submission
     [Documentation]
@@ -44,22 +45,10 @@ Submit And Verify
     Click Button    xpath=${BUTTON_CORRECT}
 
     # Sprawdzenie czy przetwarzanie CV zakończyło się sukcesem (dopasuj do aplikacji)
-    Sleep    20s
+    Sleep    10s
 
     # Pobranie wartości po kliknięciu
-    ${EXIT_NAME}         Get Text    xpath=${XPATH_NAME}
-    ${EXIT_TITLE}        Get Text    xpath=${INPUT_TITLE}
-    ${EXIT_PROFILE}    Get Text    xpath=${INPUT_PROFILE} 
-    ${EXIT_EXPERIENCE}       Get Text    xpath=${INPUT_EXPERIENCE}
-    ${EXIT_EDUCATION}      Get Text    xpath=${INPUT_EXPERIENCE}
-    ${EXIT_SKILLS}    Get Text   xpath=${INPUT_SKILLS}
-    ${EXIT_CONTACT}     Get Text    xpath=${INPUT_CONTACT}
+    ${RESPOND}    Get Text    xpath=${RESPOND_FIELD}
 
     # Porównanie wartości input i exit
-    Should Not Be Equal    ${NAME}    ${EXIT_NAME}
-    Should Not Be Equal    ${TITLE}    ${EXIT_TITLE}   
-    Should Not Be Equal    ${PROFILE}    ${EXIT_PROFILE}
-    Should Not Be Equal    ${EXPERIENCE}    ${EXIT_EXPERIENCE}    
-    Should Not Be Equal    ${EDUCATION}    ${EXIT_EDUCATION}
-    Should Not Be Equal    ${SKILLS}    ${EXIT_SKILLS}    
-    Should Be Equal    ${CONTACT}    ${EXIT_CONTACT}    
+    Should Not Be Equal    ${RESPOND_DEFAULT}    ${RESPOND}

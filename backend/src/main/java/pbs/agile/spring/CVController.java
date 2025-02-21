@@ -42,9 +42,11 @@ public class CVController {
 
     @PostMapping("/correct-cv")
     public Feedback sendText(@RequestBody FormData data) {
+        LOGGER.info(data.toString());
         UserMessage userMessage = new UserMessage("Validate my CV: " + data.toString());
         Prompt prompt = new Prompt(List.of(systemMessageCorrect, systemMessageAntiInjection, systemMessageLanguage, userMessage));
         String response = chatClient.prompt(prompt).call().content();
+        LOGGER.info(response);
         return new Feedback(response);
     }
 
