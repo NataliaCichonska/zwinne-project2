@@ -69,13 +69,32 @@ const CVForm = () => {
     } catch (error) {
       console.error("Error correcting CV:", error);
       setResponse(["Wystąpił błąd podczas poprawiania CV."]);
+      console.error("Error correcting CV:", error);
+      const response = (error as any)?.response;
+      if (response?.status === 500) {
+        setErrorPopUp(true);
+        setErrorText(response.data.error ?? "ERROR");
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
+  const [disclaimerPopUp, setDisclaimerPopUp] = useState(false);
+  const [errorPopUp, setErrorPopUp] = useState(false);
+  const [errorText, setErrorText] = useState("");
+
+  useEffect(() => {
+    if (!localStorage.getItem("popupClosed")) {
+      console.log("Pop-up powinien się otworzyć");
+      setDisclaimerPopUp(true);  
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="card-container" style={{ overflowY: "auto", maxHeight: "100vh" }}>
+        <PopUpAlert isOpen={errorPopUp} customText={errorText} onClose={() => {setErrorPopUp(false);}} />
+        <PopUpAlert isOpen={disclaimerPopUp} onClose={() => {setDisclaimerPopUp(false); localStorage.setItem("popupClosed", "true")}} />
       <div className="center-wrap">
         <div className="form-container" style={{ minHeight: "auto" }}>
           <div className="form-column form-column-1">
@@ -109,4 +128,3 @@ const CVForm = () => {
 };
 
 export default CVForm;
-
