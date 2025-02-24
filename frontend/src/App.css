@@ -315,8 +315,8 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 250px;
-  margin-left: 200px;
+  /* margin-top: 250px;
+  margin-left: 200px; */
   position: absolute;
   top: 0;
   left: 0;
